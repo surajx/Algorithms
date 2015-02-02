@@ -1,0 +1,4 @@
+[submodule "Stanford-Part1/code/stanford_algo_p1_private"]
+	path = Stanford-Part1/code/stanford_algo_p1_private
+	url = git@github.com:surajx/Coursera_private.git
+	branch = stanford_algo_p1
