@@ -20,10 +20,14 @@ def LCS(X,Y):
         L[i][j] = 1 + L[i-1][j-1]
       else:
         L[i][j] = max(L[i-1][j], L[i][j-1])
-  print ''.join([str(y)+'\n' for y in L])
-  return L[n][m]
+  #print ''.join([str(y)+'\n' for y in L])
+  seq_LCS = [Y[L[n].index(i)-1] for i in range(L[n][m],0,-1)]
+  seq_LCS.reverse()
+  seq_LCS = ''.join(seq_LCS)
+  return seq_LCS
 
 if __name__ == '__main__':
   print LCS("ABCDGH","AEDFHR")
   print LCS("AGGTAB","GXTXAYB")
+  print LCS("ACCGGTCGAGTGCGCGGAAGCCGGCCGAA","GTCGTTCGGAATGCCGTTGCTCTGTAAA") #Cormen P391
 
