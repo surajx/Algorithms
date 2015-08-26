@@ -1,2 +1,2 @@
 # Algorithms
-My algorithm courses from coursera
+My Algorithms learning curve
