@@ -2,7 +2,7 @@ class Vertex:
     pass
 
 class Graph:
-    def __init__(self, Adj, directed=True):
+    def __init__(self, Adj):
         self.Adj = {}
         val_obj_map = {}
         for u in Adj.keys():
