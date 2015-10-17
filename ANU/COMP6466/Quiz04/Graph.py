@@ -2,13 +2,16 @@ class Vertex:
     pass
 
 class Graph:
-    def __init__(self, Adj, directed=False):
+    def __init__(self, Adj, directed=True):
         self.Adj = {}
         val_obj_map = {}
         for u in Adj.keys():
-            u_obj = Vertex()
-            u_obj.value = u
-            val_obj_map[u] = u_obj
+            try:
+                u_obj = val_obj_map[u]
+            except:                
+                u_obj = Vertex()
+                u_obj.value = u
+                val_obj_map[u] = u_obj
             u_neighbour_list = []
             for v in Adj[u]:
                 try:
@@ -28,6 +31,12 @@ class Graph:
                 G_str += v.value + " "
             G_str = G_str.strip() + "\n"
         return G_str.strip()
+
+    def V(self):
+        return self.Adj.keys()
+
+    def getAdjOf(self, u):
+        return self.Adj[u]
 
 if __name__ == '__main__':
     G = Graph({'v':['u','w'],'u':['w','x'],'w':[],'x':[],'a':['b'],'b':['c'],
