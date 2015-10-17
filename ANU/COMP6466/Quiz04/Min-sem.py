@@ -16,21 +16,18 @@ def DFS_VISIT(G, u):
 
 def TOPOLOGICAL_SORT(G):
     sorted_list = []
-    def DFS_TO(G):
-        for u in G.V():
-            u.color = WHITE
-        def DFS_VISIT_TO(G, u):
-            u.color = GRAY
-            for v in G.getAdjOf(u):
-                if v.color == WHITE:
-                    DFS_VISIT_TO(G, v)
-            u.color = BLACK
-            sorted_list.insert(0, u)
-        for u in G.V():
-            if u.color == WHITE:
-                DFS_VISIT_TO(G, u)
-
-    DFS_TO(G)
+    for u in G.V():
+        u.color = WHITE
+    def DFS_VISIT_TO(G, u):
+        u.color = GRAY
+        for v in G.getAdjOf(u):
+            if v.color == WHITE:
+                DFS_VISIT_TO(G, v)
+        u.color = BLACK
+        sorted_list.insert(0, u)
+    for u in G.V():
+        if u.color == WHITE:
+            DFS_VISIT_TO(G, u)
     return sorted_list
 
 def MIN_SEM(G):
