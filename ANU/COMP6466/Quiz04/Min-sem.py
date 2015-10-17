@@ -35,13 +35,10 @@ def TOPOLOGICAL_SORT(G):
             time += 1
             u.d = time #Discovery time
             u.color = GRAY
-            u.max_sem = 0
             for v in G.getAdjOf(u):
                 if v.color == WHITE:
                     v.pi = u
                     DFS_VISIT_TO(G, v)
-                    u.max_sem = max(v.max_sem,u.max_sem)
-            u.max_sem += 1
             u.color = BLACK
             time += 1
             u.f = time #Finish time
@@ -53,10 +50,7 @@ def TOPOLOGICAL_SORT(G):
     DFS_TO(G)
     return sorted_list
 
-if __name__ == '__main__':
-#    G = Graph.Graph({'v':['u','w'],'u':['w','x'],'w':[],'x':[],'z':['y'],'y':['a','b'],
-#        'a':[],'b':[],'i':['j'],'j':['k','m'],'k':['m'],'m':[]})
-    G = Graph.Graph({'v':['u','w'],'u':['w','x'],'w':[],'x':['w']})
+def MIN_SEM(G):
     ordered_vertex_list = TOPOLOGICAL_SORT(G)
     #resetting vertex data
     for u in G.V():
@@ -66,8 +60,18 @@ if __name__ == '__main__':
         u.f = 0
         u.max_sem = 0
     max_sem = 0
+    global time
+    time = 0
     for v in ordered_vertex_list:
-        DFS_VISIT(G,v)
-        max_sem = max(max_sem, v.max_sem)
-    print "Minimum sem:", max_sem
+        if v.color==WHITE:
+            DFS_VISIT(G,v)
+            max_sem = max(max_sem, v.max_sem)
+    return max_sem
 
+
+if __name__ == '__main__':
+    G = Graph.Graph({'v':['u','w'],'u':['w','x'],'w':[],'x':[],'z':['y'],'y':['a','b'],
+        'a':[],'b':[],'i':['j'],'j':['k','m'],'k':['m'],'m':[]})
+#       ,'i':['j'],'j':['k','m'],'k':['m'],'m':[]})
+#    G = Graph.Graph({'v':['u','w'],'u':['w','x'],'w':[],'x':['w']})
+    print "Minimum sem:", MIN_SEM(G)
