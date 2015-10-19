@@ -1,24 +1,42 @@
 from random import random,randint
 
-def quicksort(A, st_idx, sp_idx):
+def quicksort(A, st_idx, sp_idx, criterionFn=None):
     if st_idx < sp_idx:
-        p = partition(A, st_idx, sp_idx)
-        quicksort(A, st_idx, p-1)
-        quicksort(A, p+1, sp_idx)
+        p = partition(A, st_idx, sp_idx, criterionFn)
+        quicksort(A, st_idx, p-1, criterionFn)
+        quicksort(A, p+1, sp_idx, criterionFn)
 
-def partition(A, st_idx, sp_idx):
+def partition(A, st_idx, sp_idx, criterionFn):
     p_idx = randint(st_idx, sp_idx)
     pivot = A[p_idx]
     A[p_idx], A[sp_idx] = A[sp_idx], A[p_idx]
     i = st_idx
     for j in range(st_idx, sp_idx):
-        if A[j] <= pivot:
-            A[i], A[j] = A[j], A[i]
-            i += 1
+        if criterionFn:
+            if criterionFn(A[j], pivot):
+                A[i], A[j] = A[j], A[i]
+                i += 1
+        else:
+            if A[j] <= pivot:
+                A[i], A[j] = A[j], A[i]
+                i += 1
     A[i], A[sp_idx] = A[sp_idx], A[i]
     return i
 
 if __name__ == "__main__":
-    A = [randint(1,1000) for i in range(1,1000)]
-    quicksort(A, 0, len(A)-1)
-    print A
+    class Vertex:
+        pass
+    def verMe(val):
+        v = Vertex()
+        v._value = val
+        return v
+    def getValue(self): return self._value
+    Vertex.getValue = getValue 
+    A = [verMe(randint(1,1000)) for i in range(1,1000)]
+    B = [randint(1,1000) for i in range(1,1000)]
+    def criterion(a,b): return a.getValue()<=b.getValue()
+    quicksort(A, 0, len(A)-1, criterion)
+    quicksort(B, 0, len(A)-1)
+    for v in A:
+        print v.getValue()
+    print B

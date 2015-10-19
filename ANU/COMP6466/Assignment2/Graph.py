@@ -2,7 +2,7 @@ class Vertex:
     pass
 
 class Edge:
-    def __init__(self, u, v, w=1):
+    def __init__(self, u, v, w):
         self.u = u
         self.v = v
         self.w = w
@@ -30,7 +30,6 @@ class Graph:
                         u_neighbour_list.append(v_obj)
                 self.Adj[u_obj] = u_neighbour_list
         else:
-            self._genCompleteGraph(n_v)
             self._V = []
             for i in range(n_v):
                 v = Vertex()
@@ -38,12 +37,14 @@ class Graph:
                 self._V.append(v)
             def getValue(self): return self._value
             Vertex.getValue = getValue
+            self._genCompleteGraph(n_v)
 
     def _genCompleteGraph(self, n_v):
         #TODO: How to store edj matrix eddicientry now storing redudndant data
         #because its a symmetric matrix.
-        from random import uniform
+        from random import random
         self.Adj = []
+        self._E = []
         for i in range(n_v):
             self.Adj.append([0]*n_v)
         i,j=0,0
@@ -51,11 +52,10 @@ class Graph:
             if i==j:
                 j += 1
                 i = 0
-            e_w = 0
-            while e_w==0:
-                e_w = uniform(0.0,1.0)
+            e_w = round(random(),10)
             self.Adj[i][j] = e_w
             self.Adj[j][i] = e_w
+            self._E.append(Edge(self._V[i], self._V[j], e_w))
             i += 1
 
     def __str__(self):
@@ -84,6 +84,12 @@ class Graph:
             del Adj_V[u.getValue()]
             return Adj_V
 
+    def E(self):
+        if isinstance(self.Adj, dict):
+            pass
+        else:
+            return self._E
+
 if __name__ == '__main__':
     G_directed = Graph(random=False, Adj={'v':['u','w'],'u':['w','x'],'w':[],'x':[],
         'a':['b'],'b':['c'],'c':[],'i':['j'],'j':[]})
@@ -91,4 +97,9 @@ if __name__ == '__main__':
     G_random = Graph(5)
     print G_random.V()
     print G_random.getAdjOf(G_random.V()[0])
+    from quicksort import quicksort
+    def sort_condition(a,b): return a.w<=b.w
+    quicksort(G_random.E(),0,len(G_random.E())-1,sort_condition)
+    for e in G_random.E():
+        print e.w
 
