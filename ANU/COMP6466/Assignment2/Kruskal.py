@@ -19,7 +19,7 @@ if __name__=="__main__":
     for n in [10,100,200,500,1000]:
         mst_trial = []
         for i in range(15):
-            G = Graph(n)
+            G = Graph(n,dist_range=(0,0.5))
             MST = MST_Kruskal(G)
             MST_Sum = 0
             for e in MST:

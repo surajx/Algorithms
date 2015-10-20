@@ -8,7 +8,7 @@ class Edge:
         self.w = w
 
 class Graph:
-    def __init__(self, n_v=10, random=True, Adj=None):
+    def __init__(self, n_v=10, random=True, dist_range=(0,1), Adj=None):
         if not random:
             self.Adj = {}
             val_obj_map = {}
@@ -37,12 +37,12 @@ class Graph:
                 self._V.append(v)
             def getValue(self): return self._value
             Vertex.getValue = getValue
-            self._genCompleteGraph(n_v)
+            self._genCompleteGraph(n_v, dist_range)
 
-    def _genCompleteGraph(self, n_v):
+    def _genCompleteGraph(self, n_v, dist_range):
         #TODO: How to store edj matrix eddicientry now storing redudndant data
         #because its a symmetric matrix.
-        from random import random
+        from random import uniform
         self.Adj = []
         self._E = []
         for i in range(n_v):
@@ -52,7 +52,7 @@ class Graph:
             if i==j:
                 j += 1
                 i = 0
-            e_w = round(random(),10)
+            e_w = round(uniform(dist_range[0],dist_range[1]), 10)
             self.Adj[i][j] = e_w
             self.Adj[j][i] = e_w
             self._E.append(Edge(self._V[i], self._V[j], e_w))
