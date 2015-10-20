@@ -16,14 +16,20 @@ def MST_Kruskal(G):
     return T
 
 if __name__=="__main__":
+    import timeit
     for n in [10,100,200,500,1000]:
         mst_trial = []
+        runtime_trial = []
+        uniform_distribution_range = (0,1)
         for i in range(15):
-            G = Graph(n,dist_range=(0,0.5))
+            G = Graph(n,dist_range=uniform_distribution_range)
+            start_time = timeit.default_timer()
             MST = MST_Kruskal(G)
+            runtime_trial.append(timeit.default_timer() - start_time)
             MST_Sum = 0
             for e in MST:
                 MST_Sum += e.w
             mst_trial.append(MST_Sum)
-        print sum(mst_trial)/15
+        print "Expected L(" + str(n) + ") over U[" + str(uniform_distribution_range[0])+ ',' + str(uniform_distribution_range[1]) + "]:", sum(mst_trial)/15
+        print "Avg. Running time of Kruskal for n=" + str(n) + ":", sum(runtime_trial)/15, 's'
 
