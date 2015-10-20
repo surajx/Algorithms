@@ -52,7 +52,7 @@ class Graph:
             if i==j:
                 j += 1
                 i = 0
-            e_w = round(uniform(dist_range[0],dist_range[1]), 10)
+            e_w = round(uniform(dist_range[0],dist_range[1]), 12)
             self.Adj[i][j] = e_w
             self.Adj[j][i] = e_w
             self._E.append(Edge(self._V[i], self._V[j], e_w))
