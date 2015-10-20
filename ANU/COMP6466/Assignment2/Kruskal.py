@@ -11,13 +11,13 @@ def MST_Kruskal(G):
     for e in G.E():
         if FIND_SET(e.u)!=FIND_SET(e.v):
             T.append(e)
-            #print i,'(',e.u.getValue(),e.v.getValue(),'):',e.w
             UNION(e.u,e.v)
         i+=1
     return T
 
 if __name__=="__main__":
     for n in [10,100,200,500,1000]:
+        mst_trial = []
         for i in range(15):
             G = Graph(n)
             MST = MST_Kruskal(G)
