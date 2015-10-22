@@ -1,19 +1,29 @@
-from random import random,randint
+#from random import random,randint
 
-def quicksort(A, st_idx, sp_idx, criterionFn=None):
+def median(A, st_idx, sp_idx, mid_idx):
+    if A[st_idx] < A[sp_idx]:
+        return sp_idx if A[sp_idx] < A[mid_idx] else mid_idx
+    else:
+        return st_idx if A[st_idx] < A[mid_idx] else mid_idx
+
+def quicksort(A, key=None):
+    _quicksort(A, 0, len(A)-1, key)
+
+def _quicksort(A, st_idx, sp_idx, key=None):
     if st_idx < sp_idx:
-        p = partition(A, st_idx, sp_idx, criterionFn)
-        quicksort(A, st_idx, p-1, criterionFn)
-        quicksort(A, p+1, sp_idx, criterionFn)
+        p = partition(A, st_idx, sp_idx, key)
+        _quicksort(A, st_idx, p-1, key)
+        _quicksort(A, p+1, sp_idx, key)
 
-def partition(A, st_idx, sp_idx, criterionFn):
-    p_idx = randint(st_idx, sp_idx)
+def partition(A, st_idx, sp_idx, key):
+    #p_idx = randint(st_idx, sp_idx)
+    p_idx = median(A, st_idx, sp_idx, (sp_idx+st_idx)//2)
     pivot = A[p_idx]
     A[p_idx], A[sp_idx] = A[sp_idx], A[p_idx]
     i = st_idx
     for j in range(st_idx, sp_idx):
-        if criterionFn:
-            if criterionFn(A[j], pivot):
+        if key:
+            if key(A[j]) <= key(pivot):
                 A[i], A[j] = A[j], A[i]
                 i += 1
         else:
@@ -32,11 +42,11 @@ if __name__ == "__main__":
         return v
     def getValue(self): return self._value
     Vertex.getValue = getValue 
+    from random import randint
     A = [verMe(randint(1,1000)) for i in range(1,1000)]
     B = [randint(1,1000) for i in range(1,1000)]
-    def criterion(a,b): return a.getValue()<=b.getValue()
-    quicksort(A, 0, len(A)-1, criterion)
-    quicksort(B, 0, len(A)-1)
+    quicksort(A, key=lambda v:v.getValue())
+    quicksort(B)
     for v in A:
-        print v.getValue()
+        print v.getValue()," ",
     print B
