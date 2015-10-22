@@ -18,7 +18,7 @@ def MST_Kruskal(G):
 if __name__=="__main__":
     import timeit
     def Kruskal_for_range(uniform_distribution_range, trials=15):
-        print "############################################################"
+        print "#################### Distribution: U[0,1] ####################"
         for n in [10,100,200,500,1000]:
             mst_trial = []
             runtime_trial = []
@@ -33,8 +33,8 @@ if __name__=="__main__":
                 mst_trial.append(MST_Sum)
             print "Expected L(" + str(n) + ") over U[" + str(uniform_distribution_range[0])+ ',' + str(uniform_distribution_range[1]) + "]:", sum(mst_trial)/trials
             print "Avg. Running time of Kruskal for n=" + str(n) + ":", sum(runtime_trial)/trials, 's'
-            print "############################################################"
-        print "############################################################"
+            print "##############################################################"
+        print "##############################################################"
 
     Kruskal_for_range((0,1))
     Kruskal_for_range((0,0.5))
