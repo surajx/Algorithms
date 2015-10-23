@@ -7,13 +7,28 @@ def MST_Kruskal(G):
     for  u in G.V(): MAKE_SET(u)
     def sort_criterion(a,b): return a.w<=b.w
     quicksort(G.E(), key=sort_criterion)
-    i=0
     for e in G.E():
         if FIND_SET(e.u)!=FIND_SET(e.v):
             T.append(e)
             UNION(e.u,e.v)
-        i+=1
     return T
+
+def MST_Kruskal_constant_weight(G, W):
+    T = []
+    for u in G.V(): MAKE_SET(u)
+    weight_edge_map = {}
+    for w in W: weight_edge_map[w] = []
+    for e in G.E():
+        weight_edge_map[e.w].append(e)
+    quicksort(W)
+    for w in W:
+        for e in weight_edge_map[w]:
+            if FIND_SET(e.u)!=FIND_SET(e.v):
+                T.append(e)
+                UNION(e.u,e.v)
+        if len(T)==len(G.V())-1: break
+    return T
+
 
 if __name__=="__main__":
     import timeit
