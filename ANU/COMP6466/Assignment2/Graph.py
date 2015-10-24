@@ -16,6 +16,7 @@ class Graph:
             self.Adj = {}
             self._E = []
             val_obj_map = {}
+            self._edge_map = {}
             for u in Adj.keys():
                 try:
                     u_obj = val_obj_map[u]
@@ -32,8 +33,14 @@ class Graph:
                         v_obj.value = v
                         val_obj_map[v] = v_obj
                         u_neighbour_list.append(v_obj)
-                    self._E.append(Edge(u, val_obj_map[v],
-                        self._genEdgeWeight(weight_constraint, dist_range)))
+                    v_obj = val_obj_map[v]
+                    if (((u_obj,v_obj) in self._edge_map) or ((v_obj,u_obj) in
+                        self._edge_map)):
+                        continue
+                    e = Edge(u_obj, v_obj,
+                        self._genEdgeWeight(weight_constraint, dist_range))
+                    self._E.append(e)
+                    self._edge_map[(u_obj,v_obj)] = e
                 self.Adj[u_obj] = u_neighbour_list
         elif g_type=="complete":
             self._V = []
@@ -122,11 +129,39 @@ class Graph:
             del Adj_V[u.getValue()]
             return Adj_V
 
+    def getEdge(self, u, v):
+        if isinstance(self.Adj, dict):
+            try:
+                return self._edge_map[(u,v)]
+            except:
+                return self._edge_map[(v,u)]
+        return None
+
     def E(self):
         return self._E
 
+    def removeEdge(self, u, v):
+        if isinstance(self.Adj, dict):
+            del self.Adj[u][self.Adj[u].index(v)]
+            del self.Adj[v][self.Adj[v].index(u)]
+            try:
+                del self._E[self._E.index(self._edge_map[(u,v)])]
+                del self._edge_map[(u,v)]
+            except:
+                del self._E[self._E.index(self._edge_map[(v,u)])]
+                del self._edge_map[(v,u)]
+
+
 if __name__ == '__main__':
-    AdjList = {'v':['u','w'], 'u':['w','x'], 'w':[], 'x':[], 'a':['b'], 
-            'b':['c'], 'c':[], 'i':['j'], 'j':[]}
-    G = Graph(n_v=50, g_type="connected", weight_constraint="natural", dist_range=(0,10))
+    AdjList = {
+            'a':['b','e'],
+            'b':['a','e','c'],
+            'c':['b','d'],
+            'd':['c','e'],
+            'e':['a','b','d']
+        }
+    G = Graph(g_type="user", weight_constraint="natural",
+            dist_range=(0,10),Adj=AdjList)
+    print G
+    G.removeEdge(G.V()[1],G.getAdjOf(G.V()[1])[0])
     print G
