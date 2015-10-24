@@ -9,6 +9,8 @@ class Edge:
         self.v = v
         self.w = w
 
+#TODO: The graph class is becoming uglier and,
+# refactor when you get time
 class Graph:
     def __init__(self, n_v=10, g_type="complete", weight_constraint="none",
             dist_range=(0,1), Adj=None):
