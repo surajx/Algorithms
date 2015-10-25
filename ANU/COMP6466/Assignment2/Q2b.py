@@ -2,7 +2,7 @@ from Graph import Graph
 
 #the heap based built-in priority queue implementation is bad!
 # workaround with sorting.
-def Dijkstra(G,s,t):
+def Dijkstra(G,s):
     INIT_SINGLE_SOURCE(G,s)
     S = []
     Q = list(G.V())
@@ -38,30 +38,18 @@ if __name__ == "__main__":
             'f':[]
         }
     G = Graph(g_type="user", Adj=AdjList)
-    print G
     import math
-    W = [0.1,0.4,0.3,0.8,0.3,0.6,0,0.6,0.2,0.5]
-    i=0
     for e in G.E():
-        e.w = W[i]
-        print e.u.value + "-----" + e.v.value + ": (" + str(e.w) + ")"
         if e.w!=0:
             e.w = -math.log(e.w) # converting to negative log to make summation logs
         else:
             e.w = float("inf")
-        print e.u.value + "-----" + e.v.value + ": (" + str(e.w) + ")"
-        i+=1
-    Dijkstra(G,G.getVertex('a'),G.getVertex('f'))
-    t = G.getVertex('f')
-    print t.value, math.exp(-t.d)
-    while t.pi:
-        print t.pi.value, math.exp(-t.d)
-        t = t.pi
+    Dijkstra(G,G.getVertex('a'))
     t = G.getVertex('f')
     def print_path(t):
         if t.pi!=None:
             print_path(t.pi)
-        print t.value
+        print t.value,
     print_path(t)
 
 
