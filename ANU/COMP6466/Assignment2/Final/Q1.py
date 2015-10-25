@@ -237,12 +237,10 @@ def MST_Kruskal(G):
     for  u in G.V(): MAKE_SET(u)
     def sort_criterion(a,b): return a.w<=b.w
     quicksort(G.E(), key=sort_criterion)
-    i=0
     for e in G.E():
         if FIND_SET(e.u)!=FIND_SET(e.v):
             T.append(e)
             UNION(e.u,e.v)
-        i+=1
     return T
 
 """
