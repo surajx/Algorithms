@@ -33,7 +33,7 @@ if __name__=="__main__":
     for e in G.E():
         print e.u.value + "-----" + e.v.value + ": (" + str(e.w) + ")"
     e_vuln = most_vulnerable_edge(G)
-    print ("Most Vuln edge: " + str(e_vuln.u.value) + "----" + 
+    print ("Most Vuln edge: " + str(e_vuln.u.value) + "----" +
             str(e_vuln.v.value) + ": " + str(e_vuln.w))
     for e in MST_Kruskal(G):
         print str(e.u.value) + "----" + str(e.v.value) + ": " + str(e.w)
