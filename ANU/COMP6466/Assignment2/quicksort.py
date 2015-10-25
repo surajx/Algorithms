@@ -5,11 +5,11 @@ def quicksort(A, key=None):
 
 def _quicksort(A, st_idx, sp_idx, key):
     if st_idx < sp_idx:
-        p = partition(A, st_idx, sp_idx, key)
+        p = _partition(A, st_idx, sp_idx, key)
         _quicksort(A, st_idx, p-1, key)
         _quicksort(A, p+1, sp_idx, key)
 
-def partition(A, st_idx, sp_idx, key):
+def _partition(A, st_idx, sp_idx, key):
     p_idx = randint(st_idx, sp_idx)
     pivot = A[p_idx]
     A[p_idx], A[sp_idx] = A[sp_idx], A[p_idx]
