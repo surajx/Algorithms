@@ -28,7 +28,7 @@ if __name__=="__main__":
             'e':['a','b','d']
         }
     G = Graph(g_type="user",weight_constraint="natural",dist_range=(1,10),
-            Adj=AdjList)
+        Adj=AdjList)
     print G
     for e in G.E():
         print e.u.value + "-----" + e.v.value + ": (" + str(e.w) + ")"
