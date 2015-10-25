@@ -13,23 +13,6 @@ def MST_Kruskal(G):
             UNION(e.u,e.v)
     return T
 
-def MST_Kruskal_constant_weight(G, W):
-    T = []
-    for u in G.V(): MAKE_SET(u)
-    weight_edge_map = {}
-    for w in W: weight_edge_map[w] = []
-    for e in G.E():
-        weight_edge_map[e.w].append(e)
-    quicksort(W)
-    for w in W:
-        for e in weight_edge_map[w]:
-            if FIND_SET(e.u)!=FIND_SET(e.v):
-                T.append(e)
-                UNION(e.u,e.v)
-        if len(T)==len(G.V())-1: break
-    return T
-
-
 if __name__=="__main__":
     import timeit
     def Kruskal_for_range(uniform_distribution_range, trials=15):
