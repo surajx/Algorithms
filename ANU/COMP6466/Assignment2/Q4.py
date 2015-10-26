@@ -11,7 +11,7 @@ def alt_top_sort(G):
         if v.in_degree==0: S.append(v)
     T = []
     while len(S)>0:
-        u = S.pop()
+        u = S.pop(0)
         for v in G.getAdjOf(u):
             v.in_degree -= 1
             if v.in_degree == 0:
