@@ -39,7 +39,7 @@ if __name__ == "__main__":
             'v1':['v2','v3','v5'],
             'v3':['v5']
         }
-    G = Graph(g_type="user",Adj=AdjList)
+    G = Graph(g_type="user",Adj=AdjList1)
     T = alt_top_sort(G)
     if T:   
         for v in T:
