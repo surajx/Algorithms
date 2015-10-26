@@ -17,25 +17,25 @@ class Graph:
         if g_type=="user":
             self.Adj = {}
             self._E = []
-            val_obj_map = {}
+            self._val_obj_map = {}
             self._edge_map = {}
             for u in Adj.keys():
                 try:
-                    u_obj = val_obj_map[u]
+                    u_obj = self._val_obj_map[u]
                 except:
                     u_obj = Vertex()
                     u_obj.value = u
-                    val_obj_map[u] = u_obj
+                    self._val_obj_map[u] = u_obj
                 u_neighbour_list = []
                 for v in Adj[u]:
                     try:
-                        u_neighbour_list.append(val_obj_map[v])
+                        u_neighbour_list.append(self._val_obj_map[v])
                     except:
                         v_obj = Vertex()
                         v_obj.value = v
-                        val_obj_map[v] = v_obj
+                        self._val_obj_map[v] = v_obj
                         u_neighbour_list.append(v_obj)
-                    v_obj = val_obj_map[v]
+                    v_obj = self._val_obj_map[v]
                     if (((u_obj,v_obj) in self._edge_map) or ((v_obj,u_obj) in
                         self._edge_map)):
                         continue
@@ -138,6 +138,12 @@ class Graph:
             except:
                 return self._edge_map[(v,u)]
         return None
+
+    def getVertex(self, value):
+        try:
+            return self._val_obj_map[value]
+        except:
+            pass
 
     def E(self):
         return self._E
