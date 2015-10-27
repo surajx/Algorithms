@@ -1,4 +1,4 @@
-import Graph
+from Graph import Graph
 
 WHITE = "white"
 BLACK = "black"
@@ -45,8 +45,16 @@ def MIN_SEM(G):
 
 
 if __name__ == '__main__':
-    G = Graph.Graph({'v':['u','w'],'u':['w','x'],'w':[],'x':[],'z':['y'],'y':['a','b'],
-        'a':[],'b':[]})
-#       ,'i':['j'],'j':['k','m'],'k':['m'],'m':[]})
-#    G = Graph.Graph({'v':['u','w'],'u':['w','x'],'w':[],'x':['w']})
+    AdjList = {
+            'a':['b','c'],
+            'b':['d','e'],
+            'c':['f'],
+            'd':['g'],
+            'e':['h'],
+            'f':['i','h'],
+            'g':[],
+            'h':[],
+            'i':['h']
+        }
+    G = Graph(AdjList)
     print "Minimum sem:", MIN_SEM(G)
